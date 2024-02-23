@@ -1,0 +1,118 @@
+// We inherite the Thread class to create a new thread of execution. using
+// extands method.
+
+class mythread1 extends Thread {
+    public void run() {
+        int t = 0;
+        while (t < 4000) {
+            System.out.println("This is a 1st Thread. My name is " + getName());
+            t++;
+            // break;
+        }
+
+    }
+}
+
+class mythread2 extends Thread {
+    public void run() {
+        int t = 0;
+        while (t < 4000) {
+            System.out.println("This is the 2nd Thread. I am sleeping for 5 seconds.");
+            System.out.println("");
+            t++;
+            // break;
+        }
+    }
+}
+
+class mythread3 extends Thread {
+    public void run() {
+        int t = 0;
+        while (t < 4000) {
+            System.out.println("This is the 3rd Thread. Waiting to be notified by thread1");
+            t++;
+            // break;
+        }
+    }
+}
+
+class Multithreading {
+    public static void main(String[] args) {
+        mythread1 t1 = new mythread1();
+        mythread2 t2 = new mythread2();
+        mythread3 t3 = new mythread3();
+        // Setting names of threads
+        t1.setName("Thread-A");
+        System.out.println(t1.getName());
+        t2.setName("Thread-B");
+
+        t3.setName("Thread-C");
+
+        // Starting all three threads
+        // Starting all threads using start() method
+        t1.start();
+        t2.start();
+        t3.start(); // This will also start t3, because it's binded with t2
+        // So, only one thread can execute at a time in Java
+    }
+}
+
+// Now we use runable interface and it is a interface so we have use implements
+// here not extands method.
+
+class MyThreadRunnable1 implements Runnable {
+    public int x = 0;
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 15; i++) {
+            x++;
+            System.out.print("I am running on " + Thread.currentThread().getName() + "\n");
+        }
+    }
+}
+
+class MyThreadRunnable2 implements Runnable {
+    public int x = 0;
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 35; i++) {
+            x++;
+            System.out.print("I am running on " + Thread.currentThread().getName() + "\n");
+        }
+    }
+}
+
+class MyThreadRunnable3 implements Runnable {
+    public int x = 0;
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 25; i++) {
+            x++;
+            System.out.print("I am running on " + Thread.currentThread().getName() + "\n");
+        }
+    }
+}
+
+class Multithreadin {
+    public static void main(String[] args) {
+
+        // Create two threads using the same object of a class that implements Runnable
+        // interface
+
+        MyThreadRunnable1 runnable1 = new MyThreadRunnable1();
+        Thread t1 = new Thread(runnable1);
+        MyThreadRunnable2 runnable2 = new MyThreadRunnable2();
+        Thread t2 = new Thread(runnable2);
+        MyThreadRunnable3 runnable3 = new MyThreadRunnable3();
+        Thread t3 = new Thread(runnable3);
+
+        // Start both threads
+        t1.start();
+        t2.start();
+        t3.start();
+
+    }
+}
